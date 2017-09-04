@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams ,ToastController, ModalController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController, ModalController} from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
 import { Storage } from '@ionic/storage';
-import { CartPage } from '../cart/cart';
 
+@IonicPage({})
 @Component({
   selector: 'page-product-details',
   templateUrl: 'product-details.html',
@@ -14,21 +14,37 @@ export class ProductDetailsPage {
   product: any;
   WooCommerce: any;
   reviews: any[] = [];
+  searchQuery: string = "";
+  monthNames: any[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public storage: Storage, public modalCtrl: ModalController) {
-
+    this.monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
+    
     this.product = this.navParams.get("product");
     console.log(this.product);
 
     this.WooCommerce = WC({
-      url: "http://localhost/woocommercestore",
-      consumerKey: "ck_91260d8413594f2a968e120c2646f5d0f1112793",
-      consumerSecret: "cs_18af990b31a0fbb5eab46767ead504a3caaaf201"
+      url: "http://tipid.tips",
+      consumerKey: "ck_e9a7a40da85adaeb9525c9c4870b7b4e6a62b230",
+      consumerSecret: "cs_983d964e5dcb49d9ea850c89d27bd2e3b651f197"
     });
 
     this.WooCommerce.getAsync('products/' +this.product.id+ '/reviews').then((data)=> {
       this.reviews = JSON.parse(data.body).product_reviews;
-      console.log("Reviews: "+this.reviews);
+      console.log(this.reviews);
     }, (err)=> {
       console.log(err);
     })
@@ -80,11 +96,16 @@ export class ProductDetailsPage {
       })
 
     });
-
   }
 
   openCart() {
-    this.modalCtrl.create(CartPage).present();
+    this.modalCtrl.create('CartPage').present();
+  }
+
+  onSearch(event) {
+    if(this.searchQuery.length > 0) {
+      this.navCtrl.push('SearchPage', {"searchQuery": this.searchQuery});
+    }
   }
 
 }

@@ -1,3 +1,38 @@
 page-product-details {
 
+    ion-card {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    p {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h2 {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    h3 {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .toolbar-title.toolbar-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 400;
+    }
+
+    ion-col.col {
+        border-style: solid;
+        border-width: 1px;
+        border-top: 0;
+        border-left: 0;
+        border-color: rgba(0,0,0,0.2);
+    }
+
 }

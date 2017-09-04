@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { LoginPage } from '../login/login';
-import { HomePage } from '../home/home';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
+@IonicPage({})
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -17,8 +16,7 @@ export class SignupPage {
   billing_shipping_same: boolean;
   WooCommerce: any;
   res: any;
-  userName: any;
-  passWord: any;
+  email: boolean;
 
   constructor(
     public navCtrl: NavController, 
@@ -34,9 +32,9 @@ export class SignupPage {
     this.billing_shipping_same = false;
 
     this.WooCommerce = WC({
-      url: "http://localhost/woocommercestore",
-      consumerKey: "ck_91260d8413594f2a968e120c2646f5d0f1112793",
-      consumerSecret: "cs_18af990b31a0fbb5eab46767ead504a3caaaf201"
+      url: "http://tipid.tips",
+      consumerKey: "ck_e9a7a40da85adaeb9525c9c4870b7b4e6a62b230",
+      consumerSecret: "cs_983d964e5dcb49d9ea850c89d27bd2e3b651f197"
     });
   }
 
@@ -60,12 +58,14 @@ export class SignupPage {
 
         if(res.errors) {
           validEmail = true;
+          this.email = true;
           this.toastCtrl.create({
             message: "Email is valid to use.",
             duration: 3000
           }).present();
         }else {
           validEmail = false;
+          this.email = false;
           this.toastCtrl.create({
             message: "Invalid email address or email is already in used.",
             showCloseButton: true
@@ -77,6 +77,7 @@ export class SignupPage {
       })
     } else {
       validEmail = false;
+      this.email = true;
       this.toastCtrl.create({
         message: "Invalid email address or email is already in used.",
         showCloseButton: true
@@ -98,102 +99,86 @@ export class SignupPage {
         "last_name": this.newUser.last_name,
         "username": this.newUser.username,
         "password": this.newUser.password,
-        "billing_address": {
-          "first_name": this.newUser.first_name,
-          "last_name": this.newUser.last_name,
-          "company": "",
-          "address_1": this.newUser.billing_address.address_1,
-          "address_2": this.newUser.billing_address.address_2,
-          "city": this.newUser.billing_address.city,
-          "state": this.newUser.billing_address.state,
-          "postcode": this.newUser.billing_address.postcode,
-          "country": this.newUser.billing_address.country,
-          "email": this.newUser.email,
-          "phone": this.newUser.billing_address.phone
-        },
-        "shipping_address": {
-          "first_name": this.newUser.first_name,
-          "last_name": this.newUser.last_name,
-          "company": "",
-          "address_1": this.newUser.shipping_address.address_1,
-          "address_2": this.newUser.shipping_address.address_2,
-          "city": this.newUser.shipping_address.city,
-          "state": this.newUser.shipping_address.state,
-          "postcode": this.newUser.shipping_address.postcode,
-          "country": this.newUser.shipping_address.country
-        }
+        // "billing_address": {
+        //   "first_name": this.newUser.first_name,
+        //   "last_name": this.newUser.last_name,
+        //   "company": "",
+        //   "address_1": this.newUser.billing_address.address_1,
+        //   "address_2": this.newUser.billing_address.address_2,
+        //   "city": this.newUser.billing_address.city,
+        //   "state": this.newUser.billing_address.state,
+        //   "postcode": this.newUser.billing_address.postcode,
+        //   "country": this.newUser.billing_address.country,
+        //   "email": this.newUser.email,
+        //   "phone": this.newUser.billing_address.phone
+        // },
+        // "shipping_address": {
+        //   "first_name": this.newUser.first_name,
+        //   "last_name": this.newUser.last_name,
+        //   "company": "",
+        //   "address_1": this.newUser.shipping_address.address_1,
+        //   "address_2": this.newUser.shipping_address.address_2,
+        //   "city": this.newUser.shipping_address.city,
+        //   "state": this.newUser.shipping_address.state,
+        //   "postcode": this.newUser.shipping_address.postcode,
+        //   "country": this.newUser.shipping_address.country
+        // }
       }
 
-      if(this.billing_shipping_same){
+    //   if(this.billing_shipping_same){
 
-        customerData.customer = {
-        "email": this.newUser.email,
-        "first_name": this.newUser.first_name,
-        "last_name": this.newUser.last_name,
-        "username": this.newUser.username,
-        "password": this.newUser.password,
-        "billing_address": {
-          "first_name": this.newUser.first_name,
-          "last_name": this.newUser.last_name,
-          "company": "",
-          "address_1": this.newUser.billing_address.address_1,
-          "address_2": this.newUser.billing_address.address_2,
-          "city": this.newUser.billing_address.city,
-          "state": this.newUser.billing_address.state,
-          "postcode": this.newUser.billing_address.postcode,
-          "country": this.newUser.billing_address.country,
-          "email": this.newUser.email,
-          "phone": this.newUser.billing_address.phone
-        },
-        "shipping_address": {
-          "first_name": this.newUser.first_name,
-          "last_name": this.newUser.last_name,
-          "company": "",
-          "address_1": this.newUser.billing_address.address_1,
-          "address_2": this.newUser.billing_address.address_2,
-          "city": this.newUser.billing_address.city,
-          "state": this.newUser.billing_address.state,
-          "postcode": this.newUser.billing_address.postcode,
-          "country": this.newUser.billing_address.country
-        }
-      }
+    //     customerData.customer = {
+    //     "email": this.newUser.email,
+    //     "first_name": this.newUser.first_name,
+    //     "last_name": this.newUser.last_name,
+    //     "username": this.newUser.username,
+    //     "password": this.newUser.password,
+    //     "billing_address": {
+    //       "first_name": this.newUser.first_name,
+    //       "last_name": this.newUser.last_name,
+    //       "company": "",
+    //       "address_1": this.newUser.billing_address.address_1,
+    //       "address_2": this.newUser.billing_address.address_2,
+    //       "city": this.newUser.billing_address.city,
+    //       "state": this.newUser.billing_address.state,
+    //       "postcode": this.newUser.billing_address.postcode,
+    //       "country": this.newUser.billing_address.country,
+    //       "email": this.newUser.email,
+    //       "phone": this.newUser.billing_address.phone
+    //     },
+    //     "shipping_address": {
+    //       "first_name": this.newUser.first_name,
+    //       "last_name": this.newUser.last_name,
+    //       "company": "",
+    //       "address_1": this.newUser.billing_address.address_1,
+    //       "address_2": this.newUser.billing_address.address_2,
+    //       "city": this.newUser.billing_address.city,
+    //       "state": this.newUser.billing_address.state,
+    //       "postcode": this.newUser.billing_address.postcode,
+    //       "country": this.newUser.billing_address.country
+    //     }
+    //   }
 
-    }
+    // }
 
     this.WooCommerce.postAsync('customers', customerData).then( (data) => {
-      this.userName = this.newUser.username;
-      this.passWord = this.newUser.password;
-
+      let userName = this.newUser.username;
+      let passWord = this.newUser.password;
+      console.log(this.newUser.username+" "+this.newUser.password);
       let response = (JSON.parse(data.body));
-
+//auto-login after signup
       if(response.customer){
-        this.alertCtrl.create({
-          title: "Account successfully created",
-          message: "Click OK to proceed",
-          buttons: [{
-            text: "Ok",
-            handler: ()=> {
-              this.http.get("http://localhost/woocommercestore/api/auth/generate_auth_cookie/?insecure=cool&username=" + this.userName + "&password=" + this.passWord)
-                .subscribe( (res)=> {
-                  console.log(res.json());
+        this.http.get("http://app.tinkertech.biz/api/auth/generate_auth_cookie/?insecure=cool&username=" + userName + "&password=" + passWord)
+          .subscribe( (res)=> {
+            console.log(res.json());
 
-                  let response = res.json();
+            let response = res.json();
 
-                  this.storage.set("userLoginInfo", response).then( (data)=> {
-                    
-                    if(this.navParams.get("next")) {
-                      this.navCtrl.push(this.navParams.get("next"));
-                    } else {
-                      this.navCtrl.pop();
-                    }
+            this.storage.set("userLoginInfo", response).then( (data)=> {
+              this.navCtrl.setRoot('MenuPage');
+            })
 
-                  })
-
-                })
-              
-            }
-          }]
-        }).present();
+        })
       } else if(response.errors){
         this.toastCtrl.create({
           message: response.errors[0].message,

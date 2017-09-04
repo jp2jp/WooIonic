@@ -1,126 +1,26 @@
 <ion-header>
 
   <ion-navbar>
-    <button ion-button menuToggle>
+    <!-- <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Account Info</ion-title>
+    <ion-title>Profile</ion-title> -->
+    <ion-searchbar [(ngModel)]="searchQuery" (search)="onSearch($event)"></ion-searchbar>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-    <ion-list>
-      <ion-item-divider color="danger">Personal Details</ion-item-divider>
-      
-      <ion-item>
-        <ion-label>First Name</ion-label>
-        <<ion-input type="text" [(ngModel)]="newOrder.billing_address.first_name"></ion-input>
-      </ion-item>
 
-      <ion-item>
-        <ion-label>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="newOrder.billing_address.last_name"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Email</ion-label>
-        <ion-input readonly type="email" [(ngModel)]="newOrder.email"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Username</ion-label>
-        <ion-input readonly type="text" [(ngModel)]="newOrder.username"></ion-input>
-      </ion-item>
-
-      <ion-item-divider color="danger">Billing Details</ion-item-divider>
-
-      <ion-item>
-        <ion-label>Address Line 1</ion-label>
-        <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.billing_address.address_1"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Address Line 2</ion-label>
-        <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.billing_address.address_2"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Country</ion-label>
-        <ion-select [(ngModel)]="newOrder.billing_address.country">
-          <ion-option value="PH" selected="true">Philippines</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>State/Province</ion-label>
-        <ion-select [(ngModel)]="newOrder.billing_address.state">
-          <ion-option value="NEC" selected="true">Negros Occidental</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>City</ion-label>
-        <ion-input type="text" [(ngModel)]="newOrder.billing_address.city"></ion-input>        
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Postal Code</ion-label>
-        <ion-input type="number" clearInput [(ngModel)]="newOrder.billing_address.postcode"></ion-input>        
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Phone</ion-label>
-        <ion-input type="tel" clearInput [(ngModel)]="newOrder.billing_address.phone"></ion-input>        
-      </ion-item>
-
-
-      <ion-item-divider color="danger" *ngIf="!billing_shipping_same">Shipping Details</ion-item-divider>
-      
-      <ion-item>
-        <ion-label>First Name</ion-label>
-        <ion-input type="text" [(ngModel)]="newOrder.shipping_address.first_name"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Last Name</ion-label>
-        <ion-input type="text" [(ngModel)]="newOrder.shipping_address.last_name"></ion-input>
-      </ion-item>
-      
-      <ion-item>
-        <ion-label>Address Line 1</ion-label>
-        <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.shipping_address.address_1"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Address Line 2</ion-label>
-        <ion-textarea type="text" maxlength="80" [(ngModel)]="newOrder.shipping_address.address_2"></ion-textarea>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Country</ion-label>
-        <ion-select [(ngModel)]="newOrder.shipping_address.country">
-          <ion-option value="PH" selected="true">Philippines</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>State/Province</ion-label>
-        <ion-select [(ngModel)]="newOrder.shipping_address.state">
-          <ion-option value="NEC" selected="true">Negros Occidental</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>City</ion-label>
-        <ion-input type="text" [(ngModel)]="newOrder.shipping_address.city"></ion-input>        
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Postal Code</ion-label>
-        <ion-input type="number" clearInput [(ngModel)]="newOrder.shipping_address.postcode"></ion-input>        
-      </ion-item>
-
-    </ion-list>
+  <ion-grid>
+    <ion-row>
+      <ion-col style="text-align:center;">
+        <img [src]="profile.avatar_url" style="width:40%;height:auto;margin:auto;border-radius:50%;margin-top:30px;" />
+        <h2>{{profile.billing_address.first_name}} {{profile.billing_address.last_name}}</h2>   
+        <p>{{profile.email}}</p>
+        <qr-code [value]="value" [size]="130"></qr-code>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>

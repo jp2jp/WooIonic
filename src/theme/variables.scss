@@ -38,7 +38,8 @@ $colors: (
   secondary:  #32db64,
   danger:     #f53d3d,
   light:      #f4f4f4,
-  dark:       #222
+  dark:       #222,
+  ding:       #5A07A2
 );
 
 
@@ -86,3 +87,5 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');

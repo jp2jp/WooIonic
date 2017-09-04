@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { ProductDetailsPage } from '../product-details/product-details';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import * as WC from 'woocommerce-api';
 
+@IonicPage({})
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html',
@@ -13,19 +13,29 @@ export class SearchPage {
   WooCommerce: any;
   products: any[] = [];
   page: number = 2;
+  cantSearch: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
     console.log(this.navParams.get("searchQuery"));
     this.searchQuery = this.navParams.get("searchQuery");
 
     this.WooCommerce = WC({
-      url: "http://localhost/woocommercestore",
-      consumerKey: "ck_91260d8413594f2a968e120c2646f5d0f1112793",
-      consumerSecret: "cs_18af990b31a0fbb5eab46767ead504a3caaaf201"
+      url: "http://tipid.tips",
+      consumerKey: "ck_e9a7a40da85adaeb9525c9c4870b7b4e6a62b230",
+      consumerSecret: "cs_983d964e5dcb49d9ea850c89d27bd2e3b651f197"
     });
 
     this.WooCommerce.getAsync("products?filter[q]=" + this.searchQuery).then((searchData)=> {
       this.products = JSON.parse(searchData.body).products;
+      console.log(this.products);
+      if(this.products.length==0){
+        this.cantSearch = true;
+        console.log(this.cantSearch);
+      }
+      else if(this.products.length>0){
+        this.cantSearch = false;
+        console.log(this.cantSearch);
+      }
     });
 
   }
@@ -42,10 +52,10 @@ export class SearchPage {
       if(JSON.parse(searchData.body).products < 10) {
         event.enable(false);
 
-        this.toastCtrl.create({
-          message: "No more products.",
-          duration: 3000
-        }).present();
+        // this.toastCtrl.create({
+        //   message: "No more products.",
+        //   duration: 3000
+        // }).present();
       }
 
       event.complete();
@@ -55,7 +65,7 @@ export class SearchPage {
   }
 
   openProductPage(product) {
-    this.navCtrl.push(ProductDetailsPage, {"product": product});
+    this.navCtrl.push('ProductDetailsPage', {"product": product});
   }
   
 

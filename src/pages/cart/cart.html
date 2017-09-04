@@ -1,19 +1,21 @@
 
-<ion-header> 
-  <ion-navbar>
-    <ion-title>Your Cart</ion-title>
-  </ion-navbar>
-</ion-header>
 
 <ion-content>
 
   <ion-card>
     <ion-grid>
       <ion-row>
-        <ion-col>Your Cart Description</ion-col>
+        <ion-col>
+          <h2 style="text-align:center;">Your Orders</h2>
+        </ion-col>
       </ion-row>
-      <ion-row [hidden]="!showEmptyCartMessage">
-        <ion-col>There are no products in your cart.</ion-col>
+    </ion-grid>
+  </ion-card>
+
+  <ion-card [hidden]="!showEmptyCartMessage">
+    <ion-grid>
+      <ion-row>
+        <ion-col>There are no products in your list.</ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
@@ -24,47 +26,52 @@
         <img [src]="item.product.featured_src" style="width:60px!important;height:60px!important;" />
       </ion-thumbnail>
       <h2>{{item.product.title}}</h2>
-      <p>{{item.qty}} x {{item.product.price}}</p>
-      <button ion-button clear item-right color="danger" (click)="removeFromCart(item, i)">
-        <ion-icon name="close-circle"></ion-icon>
+      <ion-row>
+        <ion-col col-4>
+          <p>₱{{item.product.price | number : '1.2-2'}} x {{item.qty}}</p>
+        </ion-col>
+          <ion-col col-4>
+          </ion-col>
+        <ion-col col-4 style="text-align:right;">
+          <p>₱{{item.product.price * item.qty | number : '1.2-2'}}</p>
+        </ion-col>
+      </ion-row>
+      <button ion-button clear item-right color="danger" (click)="removeFromCart(item, i)" style="height:100%!important;font-size:20px;margin:0;padding:0;margin-right:10px!important;">
+        <ion-icon name="md-close-circle"></ion-icon>
       </button>
     </ion-item>
   </ion-list>
 
-  <ion-grid>
-    <ion-card>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-2>
-
-          </ion-col>
-          <ion-col col-4>
-            <b>Total</b>
-          </ion-col>
-          <ion-col col-3>
-            
-          </ion-col>
-          <ion-col col-3 style="text-align:right;">
-            <b>{{total | number : '1.2-2'}}</b>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card>
-  </ion-grid>
-
 </ion-content>
 
-<ion-footer>
+ <ion-footer>
+
+  <ion-card no-padding>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <h2><b>Total</b></h2>
+        </ion-col>
+          <ion-col col-4>
+          </ion-col>
+        <ion-col col-4 style="text-align:right;">
+          <h2><b>₱{{total | number : '1.2-2'}}</b></h2>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
   <ion-toolbar>
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button color="danger" block outline (click)="closeModal()">Back</button>
-        </ion-col>
+          <button ion-button outline block color="dark" (click)="closeModal()">Close</button>
+        </ion-col>  
         <ion-col>
-          <button ion-button color="danger" block (click)="checkout()">Checkout</button>
+          <button ion-button block color="dark" (click)="checkout()">Checkout</button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-toolbar>
-</ion-footer>
+  </ion-toolbar> 
+
+</ion-footer> 

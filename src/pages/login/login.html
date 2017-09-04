@@ -7,7 +7,6 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,11 +14,9 @@
 
 <ion-content>
 
-  <ion-card style="margin:0px;border:none;width:100%;">  
-    <img src="./assets/images/logo.png" style = "width:70%;margin:auto;padding:20px;"/>
-  </ion-card>
+  <img src="./assets/images/ttlogo.png" style = "width:70%;display:block;margin:0 auto;padding:20px;margin-top:15%;margin-bottom:5%;"/>
 
-  <ion-list>
+  <ion-list style="width:90%;margin:auto;margin-bottom:5%;">
     <ion-item>
       <ion-label floating>Username or Email</ion-label>
       <ion-input type="email" [(ngModel)]="username"></ion-input>
@@ -32,7 +29,7 @@
 
   </ion-list>
 
-  <button ion-button block color="danger" (click)="login()">Login</button>
-  <button ion-button clear block color="danger">No account? Sign up here</button>
+  <button ion-button block color="dark" (click)="login()" style="width:50%;display:block;margin:auto;">Login</button>
+  <button ion-button clear block color="dark" (click)="signup()">No account? Sign up here</button>
 
 </ion-content>

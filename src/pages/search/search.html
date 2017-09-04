@@ -10,6 +10,14 @@
 
 <ion-content>
 
+  <ion-card [hidden]="!cantSearch">
+    <ion-grid>
+      <ion-row>
+        <ion-col style="text-align:center;">Can't find product.</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
   <ion-list>
     <ion-item *ngFor="let product of products" text-wrap  (click)="openProductPage(product)">
       <ion-thumbnail item-left>

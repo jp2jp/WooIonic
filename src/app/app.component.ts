@@ -3,9 +3,8 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { MenuPage } from '../pages/menu/menu';
-import { SignupPage } from '../pages/signup/signup';
 import { OneSignal } from '@ionic-native/onesignal';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -13,7 +12,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = MenuPage; 
+  rootPage: any = 'MenuPage'; 
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public oneSignal: OneSignal) {
     this.initializeApp();
@@ -27,19 +26,17 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.oneSignal.startInit('417b522d-28a6-43e1-8545-605d856d7094', '1066803582263');
+      // this.oneSignal.startInit('417b522d-28a6-43e1-8545-605d856d7094', '1066803582263');
+      // this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      // this.oneSignal.handleNotificationReceived().subscribe(() => {
+      // // do something when notification is received
+      // });
 
-      this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
+      // this.oneSignal.handleNotificationOpened().subscribe(() => {
+      //   // do something when a notification is opened
+      // });
 
-      this.oneSignal.handleNotificationReceived().subscribe(() => {
-      // do something when notification is received
-      });
-
-      this.oneSignal.handleNotificationOpened().subscribe(() => {
-        // do something when a notification is opened
-      });
-
-      this.oneSignal.endInit();
+      // this.oneSignal.endInit();
       
     });
   }

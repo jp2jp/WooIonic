@@ -3,47 +3,28 @@
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
-    </button>
-    <!--<ion-title style="background-color:#fff;">Home</ion-title>-->
-  </ion-navbar>
-
-  <ion-toolbar>
+    </button> 
     <ion-searchbar [(ngModel)]="searchQuery" (search)="onSearch($event)"></ion-searchbar>
-  </ion-toolbar>
+  </ion-navbar>
 
 </ion-header>
 
-<ion-content no-padding>
+<ion-content>
 
-  <ion-card>
-    <ion-slides autoplay="3000" pager>
-      <ion-slide *ngFor="let number of [1,2,3,4]">
-        <img src="./assets/images/{{number}}.jpg" />
-      </ion-slide>
-    </ion-slides>
-  </ion-card>
+<ion-grid no-padding>
+  <ion-slides #productSlides>
+    <ion-slide *ngFor="let product of products">
+      <img [src]="product.featured_src" />
+    </ion-slide>
+  </ion-slides>
+</ion-grid>
 
-  <img style="margin-top:10px!important;" src="./assets/images/banner.jpg" />
-
-  <ion-grid>
-    <ion-row>
-      <ion-slides #productSlides>
-        <ion-slide *ngFor="let product of products">
-          <ion-card no-padding>
-            <img [src]="product.featured_src" />
-            <h1 padding center>{{product.title}}</h1>
-          </ion-card>
-        </ion-slide>
-      </ion-slides>
-    </ion-row>
-  </ion-grid>
-
-  <ion-list>
-    <ion-item *ngFor="let product of moreProducts" text-wrap (click)="openProductPage(product)">
+  <!-- <ion-list>
+    <ion-item *ngFor="let product of products" text-wrap (click)="openProductPage(product)">
       <ion-thumbnail item-left>
         <img [src]="product.featured_src" />
       </ion-thumbnail>
-      <h2>{{product.title}}</h2>
+      {{product.title}}
       <p>
         <span [innerHTML]="product.short_description.substr(0,50)+'...'"></span>
         <span [innerHTML]="product.price_html"></span>
@@ -52,10 +33,22 @@
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
-  <ion-infinite-scroll (ionInfinite)="loadMoreProducts($event)">
+  <!-- <ion-infinite-scroll (ionInfinite)="loadMoreProducts($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  </ion-infinite-scroll> -->
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 *ngFor="let category of categories" text-wrap (click)="openCategoryPage(category)" class="card-background-page">
+        <ion-card>
+          <img [src]="category.image" />
+          <div class="card-opacity"></div>
+          <h1 class="card-title">{{category.name}} ({{category.count}})</h1>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 
 </ion-content>

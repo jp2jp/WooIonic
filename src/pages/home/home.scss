@@ -1,8 +1,70 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200');
+
+
 page-home {
 
-    ion-card{
+    img {
+        width: 100%;
+        margin: 0 !important;
+    }
+    
+    ion-card {
         margin: 0 !important;
         width: 100% !important;
+        border-radius: 0 !important;
+        ion-card {
+            max-height: 105px !important;
+            width: 100% !important;
+            box-shadow: none;
+            img {
+                margin: 0 !important;
+                width: 100% !important; 
+            }
+        }
+        .card-attributes {
+            width: 95%;
+            position: absolute;
+            bottom: 0%;
+            color: #fff;
+            font-size: 0.9em;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0 !important;
+            background: rgba(0,0,0,0.6);
+                p {   
+                    color: #fff;
+                    font-size: 0.8em;
+                    font-family: 'Montserrat', sans-serif;
+                }
+        }
     }
+    
+    .card-background-page {
 
+        padding: 1px;
+ 
+        ion-card {
+            margin: 0 !important;
+            width: 100% !important;
+            position: relative;
+            text-align: center;
+        }
+        .card-opacity {
+            background: rgba(0,0,0,0.4);
+            position: absolute;
+            top: 0%;
+            bottom: 0%;
+            width: 100%;
+        }
+        .card-title {
+            position: absolute;
+            top: 43%;
+            font-size: 1.6em;
+            font-weight: normal;
+            width: 100%;
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+    }
+    
 }

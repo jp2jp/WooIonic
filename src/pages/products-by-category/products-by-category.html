@@ -2,20 +2,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons left>
-      <button ion-button icon menuToggle>
-        <ion-icon name="menu"></ion-icon>
+    <ion-title>{{category.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="openCart()">
+        <ion-icon name="md-cart" style="font-size:30px;"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>{{category.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content no-padding>
 
-<ion-content>
+  <!-- <ion-fab right top edge (click)="openCart()">
+    <button ion-fab color="primary">
+      <ion-icon name="md-car"></ion-icon>
+    </button>
+  </ion-fab>  -->
 
-  <ion-list>
+  <!-- <ion-list>
     <ion-item *ngFor="let product of products" text-wrap (click)="openProductPage(product)">
       <ion-thumbnail item-left>
         <img [src]="product.featured_src" />
@@ -29,7 +34,18 @@
         <ion-icon name="arrow-forward"></ion-icon>
       </button>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
+
+  <ion-card *ngFor="let product of products" (click)="openProductPage(product)">
+    <ion-row>
+      <ion-col col-5>
+        <h1>{{product.title}}</h1>
+      </ion-col>
+      <ion-col col-7 no-padding>
+        <img [src]="product.images[1].src"/>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 
   <ion-infinite-scroll (ionInfinite)="loadMoreProducts($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>

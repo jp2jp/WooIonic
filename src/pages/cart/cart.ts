@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App, ModalController } from 'ionic-angular';
 import { Storage } from'@ionic/storage';
-import { CheckoutPage } from '../checkout/checkout';
-import { LoginPage} from '../login/login';
 
+@IonicPage({})
 @Component({
   selector: 'page-cart',
   templateUrl: 'cart.html',
 })
-export class CartPage {
+export class CartPage  {
 
   cartItems: any[] = [];
   total: any;
   showEmptyCartMessage: boolean = false;
+  searchQuery: string = "";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public viewCtrl: ViewController, public appCtrl: App) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public storage: Storage, public viewCtrl: ViewController, public appCtrl: App) {
+   console.log("controller");
     this.total = 0.0;
 
     this.storage.ready().then( ()=> {
@@ -33,6 +33,10 @@ export class CartPage {
 
       });
     })
+  }
+
+  ionViewDidLoad() {
+    console.log("ionViewDidLoad CartPage");
   }
 
   removeFromCart(item, i) {
@@ -55,11 +59,17 @@ export class CartPage {
     this.storage.get("userLoginInfo").then( (data)=> {
       if(data !=null) {
         this.viewCtrl.dismiss();
-        this.appCtrl.getRootNav().push(CheckoutPage);
+        this.appCtrl.getRootNav().push('CheckoutPage');
       } else {
-        this.navCtrl.push(LoginPage, {next: CheckoutPage});
+        this.navCtrl.push('LoginPage', {next: 'CheckoutPage'});
       }
     })
+  }
+
+  onSearch(event) {
+    if(this.searchQuery.length > 0) {
+      this.navCtrl.push('SearchPage', {"searchQuery": this.searchQuery});
+    }
   }
 
 

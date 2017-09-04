@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import * as WooCommerceAPI  from 'woocommerce-api';
-import { HomePage } from '../home/home';
-import { MenuPage } from '../menu/menu';
+import * as WC  from 'woocommerce-api';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
+import { SMS } from '@ionic-native/sms';
 
-
+@IonicPage({})
 @Component({
   selector: 'page-checkout',
   templateUrl: 'checkout.html',
@@ -20,7 +19,7 @@ export class CheckoutPage {
   billing_shipping_same: boolean;
   userInfo: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public alertCtrl: AlertController, public payPal: PayPal) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage: Storage, public alertCtrl: AlertController, public payPal: PayPal, private sms: SMS) {
 
     this.newOrder = {};
     this.newOrder.billing_address = {};
@@ -42,10 +41,10 @@ export class CheckoutPage {
       },
     ];
 
-    this.WooCommerce = new WooCommerceAPI ({
-      url: "http://localhost/woocommercestore",
-      consumerKey: "ck_91260d8413594f2a968e120c2646f5d0f1112793",
-      consumerSecret: "cs_18af990b31a0fbb5eab46767ead504a3caaaf201"
+    this.WooCommerce = WC({
+      url: "http://tipid.tips",
+      consumerKey: "ck_e9a7a40da85adaeb9525c9c4870b7b4e6a62b230",
+      consumerSecret: "cs_983d964e5dcb49d9ea850c89d27bd2e3b651f197"
     });
 
     this.storage.get("userLoginInfo").then( (userLoginInfo)=> {
@@ -165,10 +164,19 @@ export class CheckoutPage {
             buttons: [{
               text: "OK",
               handler: () => {
-               this.navCtrl.setRoot(MenuPage);
+               this.navCtrl.setRoot('MenuPage');
               }
             }]
           }).present();
+
+          var options={
+            replaceLineBreaks: false, // true to replace \n by a new line, false by default
+            android: {
+              //intent: 'INTENT'  // Opens Default sms app
+              intent: '' // Sends sms without opening default sms app
+            }
+          }
+          this.sms.send('09468724323', '1234567890');
 
         });
         
@@ -178,7 +186,15 @@ export class CheckoutPage {
 
   }
 
-
-
+  // sendMessage() {
+  //   var options={
+  //     replaceLineBreaks: false, // true to replace \n by a new line, false by default
+  //     android: {
+  //       //intent: 'INTENT'  // Opens Default sms app
+  //       intent: '' // Sends sms without opening default sms app
+  //     }
+  //   }
+  //   this.sms.send('09274843153', 'Hello world!',options);
+  // }
 
 }
